@@ -7,13 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    lSystemController = new LSystemController();
-
-    lSystemController->setLSystem(&lSystem);
     ui->lsystemView->setLSystem(&lSystem);
 
-    connect(lSystemController, SIGNAL(lsystemGenerated()), this, SLOT(onLSystemGenerated()));
-    connect(ui->depthSpinBox, SIGNAL(valueChanged(int)), lSystemController, SLOT(setDepth(int)));
+    connect(ui->depthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(gen()));
     connect(ui->boldLines, SIGNAL(stateChanged(int)), this, SLOT(onDisplayChanged()));
     connect(ui->submit, SIGNAL(clicked()), this, SLOT(onSubmitTriggered()));
 
@@ -24,12 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete lSystemController;
-}
-
-void MainWindow::onLSystemGenerated()
-{
-    ui->lsystemView->repaint();
 }
 
 void MainWindow::onDisplayChanged()
@@ -70,5 +60,12 @@ void MainWindow::onSubmitTriggered()
     r.A = ui->ruleA->text().toStdString();
     r.B = ui->ruleB->text().toStdString();
     r.angle = ui->angle->value();
-    lSystemController->setRules(r);
+    lSystem.setRules(r);
+    gen();
+}
+
+void MainWindow::gen()
+{
+    lSystem.gen(static_cast<unsigned>(ui->depthSpinBox->value()));
+    ui->lsystemView->repaint();
 }

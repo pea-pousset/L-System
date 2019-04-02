@@ -18,14 +18,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void onLSystemGenerated();
     void onDisplayChanged();
     void onSubmitTriggered();
+    void gen();
 
 private:
     Ui::MainWindow *ui;
     LSystem lSystem;
-    LSystemController* lSystemController;
 
     void updateRulesetFromLSystem();
 };
