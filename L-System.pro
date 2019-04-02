@@ -30,16 +30,14 @@ SOURCES += \
     lsystem.cpp \
     vector.cpp \
     rotationmatrix.cpp \
-    lsystemview.cpp \
-    lsystemcontroller.cpp
+    lsystemview.cpp
 
 HEADERS += \
         mainwindow.h \
     lsystem.h \
     vector.h \
     rotationmatrix.h \
-    lsystemview.h \
-    lsystemcontroller.h
+    lsystemview.h
 
 FORMS += \
         mainwindow.ui
